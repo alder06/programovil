@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-background">
+  <div class="logo-container">
+    <img class="logo" src="assets/icon/dabi.png" >
+  </div>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Ingrese usuario</ion-label>
+      <ion-input [(ngModel)]="email" type="email" placeholder=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Ingrese clave</ion-label>
+      <ion-input [(ngModel)]="password" type="password" placeholder=""></ion-input>
+    </ion-item>
+  </ion-list>
+  
+  <ion-button expand="full" (click)="login()">login</ion-button>
+
+  <ion-grid>
+    <ion-row>
+      <!-- Botón Registrar a la izquierda -->
+      <ion-col size="6" class="ion-text-left">
+        <div class="registro">
+          <a [routerLink]="['/registrar']">Registrar</a>
+        </div>
+      </ion-col>
+
+      <!-- Botón Recuperar a la derecha -->
+      <ion-col size="6" class="ion-text-right">
+        <div class="recuperar">
+          <a [routerLink]="['/recuperar']">Recuperar</a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
