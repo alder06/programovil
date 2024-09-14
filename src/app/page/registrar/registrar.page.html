@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/"></ion-back-button>
@@ -7,18 +7,13 @@
       <ion-title size="large">Registrar</ion-title>
     </ion-toolbar>
   </ion-header>
-  
-  <div> 
-    <ion-button (click)="logout()">logout</ion-button> 
- </div>
-  
 </ion-content>
 
   <ion-input  [(ngModel)]="email" label="cree usuario" label="Email:" type="email" placeholder=""></ion-input>
   <ion-input  [(ngModel)]="password" label="Ingrese clave" type="password" placeholder=""></ion-input>
 
     <ion-button (click)="registro()" size="default">registrar</ion-button>
-  
+
 <ion-grid [fixed]="true">
   <ion-row>
     <ion-col>
