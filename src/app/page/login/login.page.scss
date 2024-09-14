@@ -1,0 +1,52 @@
+//Estilo de Fondo login 
+.login-background {
+    --background: #ffffff; /* Color de fondo (cambia según prefieras) */
+  }
+
+/* Logo Styling */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  
+  .logo {
+    width: 115px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+  }
+  
+  
+  /* Registrar & Recuperar buttons styling */
+  ion-button {
+    --color: rgb(255, 255, 255); /* Color de texto para los botones transparentes */
+    font-weight: bold;
+  }
+  
+  .registro, .recuperar {
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  
+  .registro a, .recuperar a {
+    color: aquamarine;
+    text-decoration: underline;
+  }
+  
+  ion-button {
+    --background: #2374ff; /* Color del botón de login */
+    --background-activated: #4c8dff; /* Color cuando se hace clic */
+    --border-radius: 12px; /* Bordes redondeados */
+    font-size: 1.2rem; /* Tamaño del texto */
+    margin-top: 15px; /* Espaciado superior para todos los botones */
+  }
+  
+  .registro a:hover, .recuperar a:hover {
+    color: #1c6df8; /* Cambia el color al pasar el mouse */
+    text-decoration: none; /* Elimina el subrayado al pasar el mouse */
+  }
+  
+  /* Separación y centrado */
+  ion-grid {
+    margin-top: 10px; /* Espacio entre el botón de login y los links de registro y recuperar */
+  }
+  
