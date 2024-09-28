@@ -49,4 +49,12 @@ export class StorageService {
     this.setItem(key,JSON.stringify(data))
   }
 
+  async obtenerStorage(){
+    const data=await this.getItem(key);
+    if (data==null){
+      return []
+    }else{
+      return JSON.parse(data);
+    }
+   }
 }

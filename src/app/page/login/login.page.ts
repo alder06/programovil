@@ -48,6 +48,8 @@ export class LoginPage implements OnInit {
         const jsonToken:any={
           token:this.tokenID
         }
-        this.storage.agregarStorage(jsonToken)
+        this.storage.agregarStorage(jsonToken);
+        console.log(await this.storage.obtenerStorage());
      }
+    
 }
