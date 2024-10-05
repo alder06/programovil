@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'recuperar',
     loadChildren: () => import('./page/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
+  },
+  {
+    path: 'api-test',
+    loadChildren: () => import('./api-test/api-test.module').then( m => m.ApiTestPageModule)
   }
 ];
 
