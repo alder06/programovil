@@ -10,11 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
+import {provideHttpClient } from '@angular/common/http';
+import { CameraComponent } from './component/camera/camera.component';//componente de camara, el profe lo llamo photo 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CameraComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireAuthModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideHttpClient()],
   bootstrap: [AppComponent],
 })
- export class AppModule{}
+ export class AppModule{} 
+

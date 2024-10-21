@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/principal"></ion-back-button>
+      </ion-buttons>
+      <img src="assets/img/dabi.png" width="50%" height="50%" />
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-button (click)="takePicture()">Tomar foto</ion-button>
+  <img [src]="imageUrl" *ngIf="imageUrl" alt="Foto capturada" />
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+      <ion-title>Desarrollado por Daniel Riquelme</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+ 

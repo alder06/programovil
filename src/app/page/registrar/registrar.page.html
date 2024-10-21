@@ -11,6 +11,15 @@
 
   <ion-input  [(ngModel)]="email" label="cree usuario" label="Email:" type="email" placeholder=""></ion-input>
   <ion-input  [(ngModel)]="password" label="Ingrese clave" type="password" placeholder=""></ion-input>
+  <ion-item> 
+    <ion-input  [(ngModel)]="nombre" label="Ingrese nombre"  value=""></ion-input>
+  </ion-item>
+  <ion-item> 
+    <ion-input  [(ngModel)]="telefono" label="Ingrese telefono"  value=""></ion-input>
+  </ion-item>
+  <ion-item> 
+    <ion-input  type="file" (change)="onFileChange($event)"></ion-input>
+  </ion-item>
 
     <ion-button (click)="registro()" size="default">registrar</ion-button>
 

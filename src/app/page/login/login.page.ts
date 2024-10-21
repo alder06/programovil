@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
         queryParams: {email: this.email, password: this.password}
       }
       this.pruebaStorage();
-      this.router.navigate(['principal']), navigationextras;
+      this.router.navigate(['/principal']), navigationextras;
     } catch (error) {
       console.log(error);
       this.popAlert();
@@ -44,12 +44,17 @@ export class LoginPage implements OnInit {
         })
         await alert.present(); 
       }
-     async pruebaStorage(){
-        const jsonToken:any={
-          token:this.tokenID
-        }
+      async pruebaStorage(){
+        const jsonToken:any=[
+          {
+            "token":this.tokenID
+          },
+          {
+            "email":this.email
+          }
+        ];
         this.storage.agregarStorage(jsonToken);
         console.log(await this.storage.obtenerStorage());
-     }
+      }
     
 }

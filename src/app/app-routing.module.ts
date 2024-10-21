@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {AngularFireAuthGuard, redirectUnauthorizedTo}from '@angular/fire/compat/auth-guard';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import { CameraComponent } from './component/camera/camera.component';
 
 const redireccionarlogin = () => redirectUnauthorizedTo('/login');
 
@@ -36,6 +37,23 @@ const routes: Routes = [
   {
     path: 'recuperar',
     loadChildren: () => import('./page/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
+  },
+  
+  {
+    path: 'apitest',
+    loadChildren: () => import('./page/apitest/apitest.module').then( m => m.ApitestPageModule)
+  },
+
+  // Ruta ajustada para la página de cuenta
+  {
+    path: 'cuenta',
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redireccionarlogin },
+    loadChildren: () => import('./page/cuenta/cuenta.module').then(m => m.CuentaPageModule)
+  },
+
+  {
+    path: 'camera',
+    component: CameraComponent
   },
 
   { path: '**',
