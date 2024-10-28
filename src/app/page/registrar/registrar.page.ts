@@ -24,13 +24,14 @@ export class RegistrarPage implements OnInit {
 
   async registro(){
     const usuario=await this.firebase.registrar(this.email,this.password);
+    const token = await usuario.user?.getIdToken();
     if (this.archivoImagen){
       const request= await this.crearUser.agregarUsuario(
         {
           p_nombre:this.nombre,
           email:this.email,
           p_telefono: this.telefono,
-          token: this.token
+          token: token
         },
         this.archivoImagen
       );
