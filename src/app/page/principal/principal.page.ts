@@ -1,10 +1,10 @@
 import { ApiService } from 'src/app/servicio/api.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UserModel } from 'src/app/models/usuario';
 import { FirebaseService } from 'src/app/servicio/firebase.service';
-import { StorageService } from 'src/app/servicio/storage.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-principal',
@@ -14,55 +14,41 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 export class PrincipalPage implements OnInit {
 
   
+  email: string="";
   usuario:UserModel[]=[];
-  email: string=""
-  pass: String=""
-  valor: number=0
-  imageUrl: string | undefined;
+  vehiculos:any[]=[]; 
 
-  constructor(private firebase:FirebaseService, private Router:Router, private activate: ActivatedRoute, private storage:StorageService, private apiservice:ApiService) { 
-    this.activate.queryParams .subscribe(params=> {
-      this.email=params['email'];
-      this.pass=params['password'];
-      this.valor=params['valor'];/* no es necesario agregarlo aca, solo se agrega cuando quieres ver que los datos se envian*/
-      console.log(this.email, this.pass);
-        })
-
+  constructor(private firebase:FirebaseService, private router:Router, private activate:ActivatedRoute,private actionSheetController: ActionSheetController, private apiservice:ApiService) { 
+    this.activate.queryParams.subscribe(params => {
+      this.email = params['email']; 
+      console.log('email2',this.email)
+    })
   }
-
+ 
   ngOnInit() { 
-    this.cargarUsuario();
+    this.btnObtenerVehiculos();
   }
 
   goToCuenta() {
-    this.Router.navigate(['/cuenta']);
+    this.router.navigate(['/cuenta']);
   }
   
   async logout(){
     await this.firebase.logout();
-    this.Router.navigateByUrl('login')
-  }
-  //funcion asincronica que consume la api get que trae los datos del usuario 
-  async cargarUsuario(){
-    let dataStorage = await this.storage.obtenerStorage();    
-    const req = await this.apiservice.obtenerUsuario(
-      {
-        p_correo: this.email,
-        token:dataStorage[0].token
-      }
-    );
-    this.usuario = req.data;
-    console.log("DATA INICIO USUARIO ", this.usuario);
+    this.router.navigateByUrl('login')
   }
 
-  async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri, // URL de la imagen
-      source: CameraSource.Camera // Fuente: Cámara
-    });
-
-    this.imageUrl = image.webPath; // Guardamos la URL de la imagen capturada
+  async btnRegistrarVehiculo(){
+    const navigationExtras:NavigationExtras = {
+      queryParams: {email: this.email}
+    };
+    this.router.navigate(['/agregar-vehiculo'], navigationExtras);
   }
+
+
+  async btnObtenerVehiculos(){
+    this.vehiculos = await this.apiservice.obtenerVehiculo();
+  }
+
+
 }

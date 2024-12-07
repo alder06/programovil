@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>listar-vehiculos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card *ngFor="let v of vehiculos">
+    <h2>Patente: {{v.patente}}</h2>
+    <h2>marca: {{v.marca}}</h2>
+    <h2>Modelo: {{v.modelo}}</h2>
+    <h2>Año: {{v.anio}}</h2>
+    <h2>Color: {{v.color}}</h2>
+  </ion-card>
+
+</ion-content>

@@ -28,16 +28,12 @@ export class StorageService {
     }
  
   }
- 
- 
- 
+
   private async setItem(key:string,valor:string){
  
     await Preferences.set({key:key,value:valor});
  
   }
- 
- 
  
   private async removeItem(key:string){
  

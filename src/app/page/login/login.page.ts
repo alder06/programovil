@@ -11,7 +11,7 @@ import { FirebaseService } from 'src/app/servicio/firebase.service';
 })
 export class LoginPage implements OnInit {
 
-  email=""
+  email= "";
   password=""
   tokenID:any="";
 
@@ -26,11 +26,10 @@ export class LoginPage implements OnInit {
       console.log(usuario);
       console.log("token",await usuario.user?.getIdToken());
 
-      const navigationextras:NavigationExtras={
-        queryParams: {email: this.email, password: this.password}
-      }
+  
+      
+      
       this.pruebaStorage();
-      this.router.navigate(['/principal']), navigationextras;
     } catch (error) {
       console.log(error);
       this.popAlert();
@@ -47,10 +46,7 @@ export class LoginPage implements OnInit {
       async pruebaStorage(){
         const jsonToken:any=[
           {
-            "token":this.tokenID
-          },
-          {
-            "email":this.email
+            token:this.tokenID
           }
         ];
         this.storage.agregarStorage(jsonToken);

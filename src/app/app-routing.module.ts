@@ -56,6 +56,16 @@ const routes: Routes = [
     component: CameraComponent
   },
 
+  {
+    path: 'agregar-vehiculo',
+    loadChildren: () => import('./page/agregar-vehiculo/agregar-vehiculo.module').then( m => m.AgregarVehiculoPageModule)
+  },
+
+  {
+    path: 'lista-vehiculos',
+    loadChildren: () => import('./page/listar-vehiculos/listar-vehiculos.module').then( m => m.ListarVehiculosPageModule)
+  },
+
   { path: '**',
     component: PageNotFoundComponent
   }

@@ -11,6 +11,7 @@ export class RecuperarPage implements OnInit {
 
   constructor(private firebase:FirebaseService, private Router: Router) { }
   email=""
+  password=""
   ngOnInit() {
   }
   

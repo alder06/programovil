@@ -29,7 +29,7 @@ export class RegistrarPage implements OnInit {
       const request= await this.crearUser.agregarUsuario(
         {
           p_nombre:this.nombre,
-          email:this.email,
+          p_email:this.email,
           p_telefono: this.telefono,
           token: token
         },
@@ -48,6 +48,7 @@ export class RegistrarPage implements OnInit {
     })
     await alert.present(); 
     }
+    
     onFileChange(event: any) {
 
       if (event.target.files.length > 0) {

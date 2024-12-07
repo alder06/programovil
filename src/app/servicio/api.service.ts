@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { retry, lastValueFrom, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-export interface bodyUser {
+interface bodyUser {
   p_nombre: string;
-  email: string;
+  p_email: string;
   p_telefono: string;
   token?: string;
 }
 
-export interface dataGetUser {
+interface dataGetUser {
   p_correo: string;
   token: string;
 }
@@ -55,7 +55,7 @@ export class ApiService {
     try {
       const formData = new FormData();
       formData.append('p_nombre', data.p_nombre);
-      formData.append('p_correo_electronico', data.email);
+      formData.append('p_correo_electronico', data.p_email);
       formData.append('p_telefono', data.p_telefono);
       if (data.token) {
         formData.append('token', data.token);
@@ -65,6 +65,31 @@ export class ApiService {
       }
       const response = await lastValueFrom(
         this.http.post<any>(environment.apiUrl + 'user/agregar', formData)
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async agregarVehiculo(data: bodyVehiculo, imageFile: File) {
+    try {
+      const formData = new FormData();
+      formData.append('p_id_usuario', data.p_id_usuario.toString());
+      formData.append('p_patente', data.p_patente);
+      formData.append('p_marca', data.p_marca);
+      formData.append('p_modelo', data.p_modelo);
+      formData.append('p_anio', data.p_anio.toString());
+      formData.append('p_color', data.p_color);
+      formData.append('p_tipo_combustible', data.p_tipo_combustible);
+      if (data.token) {
+        formData.append('token', data.token);
+      }
+      if (imageFile) {
+        formData.append('image', imageFile, imageFile.name);
+      }
+      const response = await lastValueFrom(
+        this.http.post<any>(environment.apiUrl + 'vehiculo/agregar', formData)
       );
       return response;
     } catch (error) {
@@ -86,4 +111,31 @@ export class ApiService {
       throw error;
     }
   }
+
+  async obtenerVehiculo(){
+    try {
+      const params = {
+        p_id: 25,
+        token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjNmZDA3MmRmYTM4MDU2NzlmMTZmZTQxNzM4YzJhM2FkM2Y5MGIyMTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG1vYmlsZWRhbmtzIiwiYXVkIjoicHJveWVjdG1vYmlsZWRhbmtzIiwiYXV0aF90aW1lIjoxNzMyOTk0NDU3LCJ1c2VyX2lkIjoiUjlOYlJlWkYwOFZ5NXZCOTg0dGpkVGRLOTFKMyIsInN1YiI6IlI5TmJSZVpGMDhWeTV2Qjk4NHRqZFRkSzkxSjMiLCJpYXQiOjE3MzI5OTQ0NTcsImV4cCI6MTczMjk5ODA1NywiZW1haWwiOiJhbC5sYW5kZXJAZHVvY3VjLmNsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImFsLmxhbmRlckBkdW9jdWMuY2wiXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.I1FqHx-SvCYy2Nl1i-Q0IPMTKpTwJkz2AUfveENkoiW91TfUWKO_pj9qPifFLQ51EitxOA6wCF5DwMphNoip_EXWtjxaW-11GrwkKNmzPxIaygnyWbcPj_fjvH7ofIWtWgy7CSN_sW2ZvkGtjStwpDpfcMDL_nPjXw8hVMRn0wNY4QzWKadyTm9dziQ9caIxKXVxE44CSILpxpvWq0q1VLWUZDM30YKPmLkKFplWduthkn4TvrDwaGfEvgAz26fNlXyFYqvGgoSsepJpjZS69t7pF3utSO-Gwy18AS6Xp_wHzAbXrYTbO8kdcaQtfbPGq2zD-2HxV8zK8ivl0N7kFg'
+      }
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'vehiculo/obtener',{params}));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+
+  }
+
 }
+
+interface bodyVehiculo {
+  p_id_usuario: number;
+  p_patente: string;
+  p_marca: string;
+  p_modelo: string;
+  p_anio: number;
+  p_color: string;
+  p_tipo_combustible: string;
+  token: string;
+}
+

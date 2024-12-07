@@ -15,4 +15,4 @@ export interface UserModel{
     patente:string;
     telefono:string;
     tipo_combustible:string;
-} 
+}

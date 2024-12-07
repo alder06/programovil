@@ -5,21 +5,19 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+
     <ion-item>
       <div>
         <ion-button (click)="goToCuenta()">Cuenta</ion-button>
       </div>
-      <ion-item> 
-        <div> 
-          <ion-button (click)="takePicture()">Tomar foto</ion-button>
-        </div>
-      </ion-item>
     </ion-item>
+
       <ion-item> 
         <div>  
           <ion-button (click)="logout()">Cerrar Sesion</ion-button> 
        </div>
       </ion-item>
+
     </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
@@ -31,6 +29,22 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding"> Tap the button in the toolbar to open the menu. </ion-content>
+  <ion-content class="ion-padding"> 
+    
+    Tap the button in the toolbar to open the menu.
+    
+      <div>
+      <p>Bienvenido: {{ email}}</p>
+      
+      <ion-img *ngIf="usuario.length > 0" [src]="usuario[0].imagen_usuario"></ion-img>
+    </div>
+    
+    <div>
+      <ion-button (click)="btnRegistrarVehiculo()" expand="block">Registrar vehiculo</ion-button>
+    </div>
+  
+
+  
+  </ion-content>
 </div>
 
