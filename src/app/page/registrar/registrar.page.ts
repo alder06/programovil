@@ -29,7 +29,7 @@ export class RegistrarPage implements OnInit {
       const request= await this.crearUser.agregarUsuario(
         {
           p_nombre:this.nombre,
-          p_email:this.email,
+          p_correo_electronico:this.email,
           p_telefono: this.telefono,
           token: token
         },

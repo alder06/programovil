@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>agregar-vehiculo</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agregar Vehículo</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -42,6 +45,6 @@
       </ion-item>
     </ion-list>
 
-    <ion-button (click)="registrarVehiculo()" expand="block">Registrar Vehiculo</ion-button>
+    <ion-button (click)="registrarVehiculo()" expand="block">Registrar Vehículo</ion-button>
   </h1>
 </ion-content>
