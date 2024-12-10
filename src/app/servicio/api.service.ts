@@ -97,40 +97,39 @@ export class ApiService {
     }
   }
 
-  async obtenerUsuario(data:dataGetUser){
+  async obtenerUsuario(data: dataGetUser) {
     try {
       const params = {
         p_correo: data.p_correo,
-        token:data.token
-      }
-      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'user/obtener',{params}));
+        token: data.token
+      };
+      const response = await lastValueFrom(
+        this.http.get<any>(environment.apiUrl + 'user/obtener', { params })
+      );
       return response;
     } catch (error) {
       throw error;
     }
   }
-  async obtenerVehiculo(data: { p_id?: number; token: string }) {
+
+  async obtenerVehiculo(data:obtenerVehiculo) {
     try {
-      const params: any = { token: data.token };
-  
-      if (data.p_id) {
-        params.p_id = data.p_id;
-      }
-  
-      console.log('Parámetros enviados a la API:', params);
-  
-      const apiUrl = `${environment.apiUrl.replace(/\/+$/, '')}/vehiculo/obtener`;
-  
+      const params = {
+        p_id: data.p_id,
+        token: data.token
+      };
+      
       const response = await lastValueFrom(
-        this.http.get<any>(apiUrl, { params })
+        this.http.get<any>(environment.apiUrl + 'vehiculo/obtener', { params })
       );
-  
       return response;
     } catch (error) {
       console.error('Error en obtenerVehiculo:', error);
       throw error;
     }
   }
+  
+  
 }
 
 interface bodyVehiculo {
@@ -144,3 +143,7 @@ interface bodyVehiculo {
   token: string;
 }
 
+interface obtenerVehiculo{
+  p_id: number;
+  token: string;
+}

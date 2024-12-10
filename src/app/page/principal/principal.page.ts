@@ -39,7 +39,13 @@ export class PrincipalPage implements OnInit {
   }
 
   goToCuenta() {
-    this.router.navigate(['/cuenta']);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 
+        email: this.email,
+        id_usuario: this.id_usuario
+      }
+    };
+    this.router.navigate(['/cuenta'], navigationExtras);
   }
 
   async logout(){
@@ -71,6 +77,16 @@ export class PrincipalPage implements OnInit {
   async btnRegistrarVehiculo() {
     const navigationExtras: NavigationExtras = { queryParams: { email: this.email, id_usuario: this.id_usuario } };
     this.router.navigate(['/agregar-vehiculo'], navigationExtras);
+  }
+
+  async btnListarVehiculos() {
+    const navigationExtras: NavigationExtras = { 
+      queryParams: { 
+        email: this.email, 
+        id_usuario: this.id_usuario 
+      } 
+    };
+    this.router.navigate(['/listar-vehiculos'], navigationExtras);
   }
 
   async ObtenerVehiculos() {

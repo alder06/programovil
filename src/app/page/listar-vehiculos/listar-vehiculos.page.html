@@ -1,17 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>listar-vehiculos</ion-title>
+    <ion-title>Listado de Vehículos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let vehiculo of vehiculos">
+      <ion-label>
+        <h2>{{ vehiculo.marca }} {{ vehiculo.modelo }}</h2>
+        <p>Patente: {{ vehiculo.patente }}</p>
+        <p>Año: {{ vehiculo.anio }}</p>
+        <p>Color: {{ vehiculo.color }}</p>
+        <p>Combustible: {{ vehiculo.tipo_combustible }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-  <ion-card *ngFor="let v of vehiculos">
-    <h2>Patente: {{v.patente}}</h2>
-    <h2>marca: {{v.marca}}</h2>
-    <h2>Modelo: {{v.modelo}}</h2>
-    <h2>Año: {{v.anio}}</h2>
-    <h2>Color: {{v.color}}</h2>
-  </ion-card>
+  <p *ngIf="vehiculos.length === 0">No hay vehículos registrados.</p>
 
+  <ion-button expand="full" (click)="regresarAPrincipal()">Regresar a Principal</ion-button>
 </ion-content>
+

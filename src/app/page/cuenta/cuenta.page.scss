@@ -1,0 +1,37 @@
+
+  .account-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-pic {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .user-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  ion-list {
+    width: 100%;
+  }
+
+  ion-item h2 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+
+  ion-item p {
+    margin: 0;
+    font-size: 1em;
+  }
+
+  ion-button {
+    margin-top: 20px;
+  }

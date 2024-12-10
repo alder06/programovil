@@ -1,0 +1,22 @@
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .logo {
+    width: 100px; /* Ajusta el tamaño del logo */
+    height: auto;
+  }
+
+  .welcome {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .user-img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    margin-top: 10px;
+  }

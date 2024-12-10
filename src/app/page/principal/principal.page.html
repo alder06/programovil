@@ -1,50 +1,64 @@
 <ion-menu side="end" contentId="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu Content</ion-title>
+      <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-
-    <ion-item>
-      <div>
-        <ion-button (click)="goToCuenta()">Cuenta</ion-button>
-      </div>
-    </ion-item>
-
-      <ion-item> 
-        <div>  
-          <ion-button (click)="logout()">Cerrar Sesion</ion-button> 
-       </div>
+    <ion-list>
+      <ion-item>
+        <ion-button expand="full" (click)="goToCuenta()">Cuenta</ion-button>
       </ion-item>
-
-    </ion-content>
+      <ion-item>
+        <ion-button expand="full" color="danger" (click)="logout()">Cerrar Sesión</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title>Principal</ion-title>
       <ion-buttons slot="end">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding"> 
-    
-    Tap the button in the toolbar to open the menu.
-    
-      <div>
-      <p>Bienvenido: {{ email}}</p>
-      
-      <ion-img *ngIf="usuario.length > 0" [src]="usuario[0].imagen_usuario"></ion-img>
-    </div>
-    
-    <div>
-      <ion-button (click)="btnRegistrarVehiculo()" expand="block">Registrar vehiculo</ion-button>
-    </div>
-  
 
-  
+  <ion-content class="ion-padding">
+    <div class="logo-container">
+      <ion-img src="icon-only.png" class="logo"></ion-img>
+    </div>
+
+    <div class="welcome">
+      <p>Bienvenido: {{ email }}</p>
+      <ion-img *ngIf="usuario.length > 0" [src]="usuario[0].imagen_usuario" class="user-img"></ion-img>
+    </div>
+
+    <ion-button expand="block" (click)="btnRegistrarVehiculo()">Registrar Vehículo</ion-button>
+
+    <ion-button expand="block" (click)="btnListarVehiculos()">Listar Vehículos</ion-button>
+
+
+    <ion-card *ngIf="vehiculo.length > 0">
+      <ion-card-header>
+        <ion-card-title>Vehículos Registrados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let car of vehiculo">
+            <ion-label>
+              <h2>{{ car.p_marca }} {{ car.p_modelo }}</h2>
+              <p>Patente: {{ car.p_patente }}</p>
+              <p>Año: {{ car.p_anio }}</p>
+              <p>Color: {{ car.p_color }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <p *ngIf="vehiculo.length === 0">No hay vehículos registrados.</p>
   </ion-content>
 </div>
-

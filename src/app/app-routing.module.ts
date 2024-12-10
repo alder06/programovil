@@ -62,7 +62,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'lista-vehiculos',
+    path: 'listar-vehiculos',
     loadChildren: () => import('./page/listar-vehiculos/listar-vehiculos.module').then( m => m.ListarVehiculosPageModule)
   },
 
