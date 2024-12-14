@@ -13,7 +13,7 @@ import { StorageService } from 'src/app/servicio/storage.service';
 })
 export class PrincipalPage implements OnInit {
   email: string = '';
-  id_usuario: string = ''; 
+  id_usuario: number=0; 
   usuario: UserModel[] = []; 
   vehiculo: any[] = []; 
 
@@ -45,7 +45,7 @@ export class PrincipalPage implements OnInit {
         id_usuario: this.id_usuario
       }
     };
-    this.router.navigate(['/cuenta'], navigationExtras);
+    this.router.navigate(['cuenta'], navigationExtras);
   }
 
   async logout(){
@@ -76,7 +76,7 @@ export class PrincipalPage implements OnInit {
 
   async btnRegistrarVehiculo() {
     const navigationExtras: NavigationExtras = { queryParams: { email: this.email, id_usuario: this.id_usuario } };
-    this.router.navigate(['/agregar-vehiculo'], navigationExtras);
+    this.router.navigate(['agregar-vehiculo'], navigationExtras);
   }
 
   async btnListarVehiculos() {
@@ -86,7 +86,7 @@ export class PrincipalPage implements OnInit {
         id_usuario: this.id_usuario 
       } 
     };
-    this.router.navigate(['/listar-vehiculos'], navigationExtras);
+    this.router.navigate(['listar-vehiculos'], navigationExtras);
   }
 
   async ObtenerVehiculos() {
@@ -108,7 +108,7 @@ export class PrincipalPage implements OnInit {
         console.log('Vehículos cargados:', this.vehiculo);
 
         const navigationExtras: NavigationExtras = { queryParams: { email: this.email, id_usuario: this.id_usuario } };
-        this.router.navigate(['/ver-vehiculos'], navigationExtras);
+        this.router.navigate(['ver-vehiculos'], navigationExtras);
       } else {
         console.error('No hay vehículos registrados.');
         this.popAlert('Error', 'No hay vehículos registrados.');

@@ -14,7 +14,7 @@ export class AgregarVehiculoPage implements OnInit {
 
   email: string = "";
   usuario: UserModel[] = [];
-  id_usuario: string = ""; 
+  id_usuario:number=0;
   patente: string = "";
   marca: string = "";
   modelo: string = "";
@@ -64,42 +64,44 @@ export class AgregarVehiculoPage implements OnInit {
   async registrarVehiculo() {
     try {
       let dataStorage = await this.storage.obtenerStorage();
-      if (this.archivoImagen) {
-        if (isNaN(Number(this.id_usuario))) {
-          console.error('id_usuario no es un número válido:', this.id_usuario);
-          await this.alertController.create({
-            header: 'Error',
-            message: 'id_usuario no es un número válido.',
-            buttons: ['OK']
-          }).then((alert: HTMLIonAlertElement) => alert.present());
-          return;
+      
+      // Verificar si hay usuarios cargados y obtener el id_usuario
+      if (this.usuario && this.usuario.length > 0) {
+        const id_usuario = this.usuario[0].id_usuario; // Obtener el ID numérico del primer usuario
+  
+        if (this.archivoImagen) {
+          const request = await this.apiservice.agregarVehiculo(
+            {
+              p_id_usuario: id_usuario, // Usar el ID numérico del usuario
+              p_patente: this.patente,
+              p_marca: this.marca,
+              p_modelo: this.modelo,
+              p_anio: this.anio,
+              p_color: this.color,
+              p_tipo_combustible: this.tipo_combustible,
+              token: dataStorage[0].token,
+            },
+            this.archivoImagen
+          );
+          
+          console.log('Vehículo registrado exitosamente:', request);
+          
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              email: this.email,
+              id_usuario: id_usuario.toString() // Convertir a string para la navegación si es necesario
+            }
+          };
+          
+          this.router.navigate(['/principal'], navigationExtras);
         }
-
-        const request = await this.apiservice.agregarVehiculo(
-          {
-            p_id_usuario: Number(this.id_usuario), 
-            p_patente: this.patente,
-            p_marca: this.marca,
-            p_modelo: this.modelo,
-            p_anio: this.anio,
-            p_color: this.color,
-            p_tipo_combustible: this.tipo_combustible,
-            token: dataStorage[0].token,
-          },
-          this.archivoImagen
-        );
-        console.log('Vehículo registrado exitosamente:', request);
-
-        const navigationExtras: NavigationExtras = {
-          queryParams: {
-            email: this.email,
-            id_usuario: this.id_usuario
-          }
-        };
-        this.router.navigate(['/principal'], navigationExtras);
+      } else {
+        // Manejar el caso en que no se cargaron datos de usuario
+        await this.popAlert('Error', 'No se pudo cargar la información del usuario');
       }
     } catch (error) {
       console.log(error);
+      await this.popAlert('Error', 'No se pudo registrar el vehículo');
     }
   }
 

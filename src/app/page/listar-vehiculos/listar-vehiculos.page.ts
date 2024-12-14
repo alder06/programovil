@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/servicio/api.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { StorageService } from 'src/app/servicio/storage.service';
-import { UserModel } from 'src/app/models/usuario';
 
 @Component({
   selector: 'app-listar-vehiculos',
@@ -12,7 +11,8 @@ import { UserModel } from 'src/app/models/usuario';
 export class ListarVehiculosPage implements OnInit {
   email: string = '';
   id_usuario: string = '';
-  vehiculos: UserModel[] = []; // Asegúrate de que esto es un arreglo de UserModel
+  vehiculos: any[] = [];
+  vehiculosFiltrados: any[] = []; // Lista de vehículos filtrados
 
   constructor(
     private apiService: ApiService,
@@ -24,7 +24,7 @@ export class ListarVehiculosPage implements OnInit {
       this.email = params['email'];
       this.id_usuario = params['id_usuario'];
 
-      console.log('ID Usuario recibido en constructor:', this.id_usuario);
+      console.log('ID Usuario recibido:', this.id_usuario);
     });
   }
 
@@ -35,10 +35,9 @@ export class ListarVehiculosPage implements OnInit {
   async obtenerVehiculos() {
     try {
       const dataStorage = await this.storage.obtenerStorage();
-      const p_id = Number(this.vehiculos); // Usar `id_usuario` para la conversión
+      const p_id = Number(this.id_usuario); // Convertir `id_usuario` a número
       const token = dataStorage[0].token;
 
-      // Verifica que `p_id` no sea NaN
       if (isNaN(p_id)) {
         console.error('Error: ID Usuario no es un número válido.');
         return;
@@ -55,13 +54,18 @@ export class ListarVehiculosPage implements OnInit {
 
       if (req && req.data.length > 0) {
         this.vehiculos = req.data;
-        console.log('Vehículos obtenidos:', this.vehiculos);
+        this.filtrarVehiculosPorUsuario(); // Filtrar los vehículos por id_usuario
+        console.log('Vehículos obtenidos:', this.vehiculosFiltrados);
       } else {
         console.error('No hay vehículos registrados.');
       }
     } catch (error) {
       console.error('Error al obtener vehículos:', error);
     }
+  }
+
+  filtrarVehiculosPorUsuario() {
+    this.vehiculosFiltrados = this.vehiculos.filter(vehiculo => vehiculo.id_usuario === Number(this.id_usuario));
   }
 
   regresarAPrincipal() {

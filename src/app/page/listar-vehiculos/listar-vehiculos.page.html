@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let vehiculo of vehiculos">
+    <ion-item *ngFor="let vehiculo of vehiculosFiltrados">
       <ion-label>
         <h2>{{ vehiculo.marca }} {{ vehiculo.modelo }}</h2>
         <p>Patente: {{ vehiculo.patente }}</p>
@@ -20,8 +20,7 @@
     </ion-item>
   </ion-list>
 
-  <p *ngIf="vehiculos.length === 0">No hay vehículos registrados.</p>
+  <p *ngIf="vehiculosFiltrados.length === 0">No hay vehículos registrados.</p>
 
   <ion-button expand="full" (click)="regresarAPrincipal()">Regresar a Principal</ion-button>
 </ion-content>
-

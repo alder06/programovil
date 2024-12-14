@@ -96,6 +96,7 @@ export class ApiService {
       throw error;
     }
   }
+  
 
   async obtenerUsuario(data: dataGetUser) {
     try {
