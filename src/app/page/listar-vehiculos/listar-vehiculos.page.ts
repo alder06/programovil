@@ -12,7 +12,6 @@ export class ListarVehiculosPage implements OnInit {
   email: string = '';
   id_usuario: string = '';
   vehiculos: any[] = [];
-  vehiculosFiltrados: any[] = []; // Lista de vehículos filtrados
 
   constructor(
     private apiService: ApiService,
@@ -34,38 +33,51 @@ export class ListarVehiculosPage implements OnInit {
 
   async obtenerVehiculos() {
     try {
-      const dataStorage = await this.storage.obtenerStorage();
-      const p_id = Number(this.id_usuario); // Convertir `id_usuario` a número
-      const token = dataStorage[0].token;
-
-      if (isNaN(p_id)) {
-        console.error('Error: ID Usuario no es un número válido.');
-        return;
+      // Primero, intenta obtener vehículos almacenados
+      const storedVehiculos = await this.storage.obtenerVehiculos();
+      
+      if (storedVehiculos.length > 0) {
+        this.vehiculos = storedVehiculos;
+        return; // Usa los vehículos almacenados si existen
       }
 
-      console.log('Datos enviados a la API:', { p_id, token }); // Verificar datos enviados
+      // Si no hay vehículos almacenados, obtén de la API
+      const dataStorage = await this.storage.obtenerStorage();
+      const p_id = Number(this.id_usuario);
+      const token = dataStorage[0].token;
 
       const req = await this.apiService.obtenerVehiculo({
         p_id: p_id,
         token: token,
       });
 
-      console.log('Respuesta de la API:', req);
+      if (req && req.data) {
+        const vehiculos = Array.isArray(req.data) 
+          ? req.data 
+          : (req.data.vehiculos || req.data);
 
-      if (req && req.data.length > 0) {
-        this.vehiculos = req.data;
-        this.filtrarVehiculosPorUsuario(); // Filtrar los vehículos por id_usuario
-        console.log('Vehículos obtenidos:', this.vehiculosFiltrados);
-      } else {
-        console.error('No hay vehículos registrados.');
+        if (Array.isArray(vehiculos) && vehiculos.length > 0) {
+          this.vehiculos = vehiculos;
+          
+          // Guarda los vehículos obtenidos de la API
+          await this.storage.guardarVehiculos(vehiculos);
+        }
       }
     } catch (error) {
       console.error('Error al obtener vehículos:', error);
     }
   }
 
-  filtrarVehiculosPorUsuario() {
-    this.vehiculosFiltrados = this.vehiculos.filter(vehiculo => vehiculo.id_usuario === Number(this.id_usuario));
+  // Método para agregar un nuevo vehículo
+  async agregarVehiculo(nuevoVehiculo: any) {
+    this.vehiculos.push(nuevoVehiculo);
+    await this.storage.guardarVehiculos(this.vehiculos);
+  }
+
+  // Método para eliminar un vehículo
+  async eliminarVehiculo(vehiculoId: number) {
+    this.vehiculos = this.vehiculos.filter(v => v.id !== vehiculoId);
+    await this.storage.guardarVehiculos(this.vehiculos);
   }
 
   regresarAPrincipal() {

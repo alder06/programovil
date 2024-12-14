@@ -2,14 +2,13 @@
   <ion-toolbar>
     <ion-title>Listado de Vehículos</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/principal"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let vehiculo of vehiculosFiltrados">
+    <ion-item *ngFor="let vehiculo of vehiculos">
       <ion-label>
         <h2>{{ vehiculo.marca }} {{ vehiculo.modelo }}</h2>
         <p>Patente: {{ vehiculo.patente }}</p>
@@ -20,7 +19,7 @@
     </ion-item>
   </ion-list>
 
-  <p *ngIf="vehiculosFiltrados.length === 0">No hay vehículos registrados.</p>
+  <p *ngIf="vehiculos.length === 0">No hay vehículos registrados.</p>
 
   <ion-button expand="full" (click)="regresarAPrincipal()">Regresar a Principal</ion-button>
 </ion-content>

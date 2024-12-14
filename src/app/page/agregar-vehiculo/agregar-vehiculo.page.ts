@@ -67,7 +67,7 @@ export class AgregarVehiculoPage implements OnInit {
       
       // Verificar si hay usuarios cargados y obtener el id_usuario
       if (this.usuario && this.usuario.length > 0) {
-        const id_usuario = this.usuario[0].id_usuario; // Obtener el ID numérico del primer usuario
+        const id_usuario = Number(this.usuario[0].id_usuario); // Obtener el ID numérico del primer usuario
   
         if (this.archivoImagen) {
           const request = await this.apiservice.agregarVehiculo(
